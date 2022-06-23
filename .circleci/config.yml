@@ -33,6 +33,27 @@ jobs:
     steps:
       - run: echo $MY_NAME ayoyinka
 
+  cache-workspace-data:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      run:
+        name: "cache data using workspace"
+        command: echo "hello world from another workspace" > ~/output.txt
+      - persist-to-workspace:
+          root: ~/
+          paths: 
+            - output.txt
+  
+  another-workspace-data:
+    docker: 
+      - image: cimg/base:stabe
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: 
+          name: "print data form another workspace"
+          command: cat ~/output.txt 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -45,4 +66,8 @@ workflows:
       - print-ayo:
           requires: 
             - print-world
+      - cache-workspace-data
+      - another-workspace-data:
+          requires: 
+            - cache-workspace-data
 
