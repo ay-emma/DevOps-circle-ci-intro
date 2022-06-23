@@ -27,6 +27,11 @@ jobs:
       - run:
           name: "print world"
           command: "echo World !"
+  print-ayo:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: echo ayoyinka
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -37,4 +42,7 @@ workflows:
       - print-world:
           requires:
             - print-hello
+      - print-ayo:
+          requires: 
+            - print-world
 
