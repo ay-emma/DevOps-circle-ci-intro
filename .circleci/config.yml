@@ -40,7 +40,7 @@ jobs:
       - run:
           name: "cache data using workspace"
           command: echo "hello world from another workspace" > ~/output.txt
-      - persist-to-workspace:
+      - persist_to_workspace:
           root: ~/
           paths: 
             - output.txt
