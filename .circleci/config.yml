@@ -37,9 +37,9 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      run:
-        name: "cache data using workspace"
-        command: echo "hello world from another workspace" > ~/output.txt
+      - run:
+          name: "cache data using workspace"
+          command: echo "hello world from another workspace" > ~/output.txt
       - persist-to-workspace:
           root: ~/
           paths: 
