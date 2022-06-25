@@ -4,6 +4,12 @@ version: 2.1
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+command: 
+  print_pipline_id: 
+    description: "A command to print the circleci workflow id"
+    steps:
+      - run: echo << CIRCLE_WORKFLOW_ID >>
+
 jobs:
   print-hello:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
@@ -54,6 +60,13 @@ jobs:
       - run: 
           name: "print data form another workspace"
           command: cat ~/output.txt 
+  
+  command-job:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - print_pipline_id:
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -70,4 +83,5 @@ workflows:
       - another-workspace-data:
           requires: 
             - cache-workspace-data
+      - command-job
 
