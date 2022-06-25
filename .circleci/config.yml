@@ -65,7 +65,7 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      - print_pipline_id:
+      - print_pipline_id
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
